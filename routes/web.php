@@ -39,3 +39,13 @@ Route::get('/test',function(){
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/games', [App\Http\Controllers\GameController::class, 'index'])->name('games.index');
+
+Route::get('/privacy-policy', function () {
+    return view('privacy-policy');
+})->name('privacy.policy');
+
+Route::get('/support', function () {
+    return view('support');
+})->name('support');

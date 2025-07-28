@@ -10,6 +10,7 @@ use App\Http\Controllers\API\NotificationController;
 use App\Http\Controllers\API\ForgotPasswordController;
 use App\Http\Controllers\API\ResetPasswordController;
 use App\Http\Controllers\API\GameController;
+use App\Http\Controllers\API\TeamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,13 @@ Route::get('/posts',[PostController::class,'index']);
 // Public Games API
 Route::get('/games', [GameController::class, 'index']);
 Route::get('/games/{id}', [GameController::class, 'show']);
+
+// Public Teams API
+Route::get('/teams', [TeamController::class, 'index']);
+Route::get('/teams/{id}', [TeamController::class, 'show']);
+Route::get('/teams/{id}/games/upcoming', [TeamController::class, 'upcomingGames']);
+Route::get('/teams/{id}/games/past', [TeamController::class, 'pastGames']);
+Route::get('/teams/{id}/players', [TeamController::class, 'players']);
 
 Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail']);
 Route::post('password/reset', [ResetPasswordController::class, 'reset']);

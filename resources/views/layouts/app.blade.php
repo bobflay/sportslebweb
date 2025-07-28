@@ -18,9 +18,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="d-flex flex-column min-vh-100">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -33,7 +34,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('games.index') }}">
+                                <i class="bi bi-controller"></i> Games
+                            </a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -78,6 +83,27 @@
         <main class="py-4">
             @yield('content')
         </main>
+        
+        <footer class="bg-light text-center py-3 mt-auto border-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="text-muted mb-2">&copy; {{ date('Y') }} {{ config('app.name', 'Woodstyle') }}. All rights reserved.</p>
+                        <div class="footer-links">
+                            <a href="{{ route('support') }}" class="text-muted text-decoration-none me-3">
+                                <i class="bi bi-headset"></i> Support
+                            </a>
+                            <a href="{{ route('privacy.policy') }}" class="text-muted text-decoration-none me-3">
+                                <i class="bi bi-shield-check"></i> Privacy Policy
+                            </a>
+                            <a href="{{ route('games.index') }}" class="text-muted text-decoration-none">
+                                <i class="bi bi-controller"></i> Games
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
