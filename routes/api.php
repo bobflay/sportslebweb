@@ -9,6 +9,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\NotificationController;
 use App\Http\Controllers\API\ForgotPasswordController;
 use App\Http\Controllers\API\ResetPasswordController;
+use App\Http\Controllers\API\GameController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,10 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('verify-otp', [AuthController::class,'verifyOTP']);
 
 Route::get('/posts',[PostController::class,'index']);
+
+// Public Games API
+Route::get('/games', [GameController::class, 'index']);
+Route::get('/games/{id}', [GameController::class, 'show']);
 
 Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail']);
 Route::post('password/reset', [ResetPasswordController::class, 'reset']);

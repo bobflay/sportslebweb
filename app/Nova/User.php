@@ -94,9 +94,6 @@ class User extends Resource
                 ->path('photos') // Specify the directory where photos are stored
                 ->rules( 'mimes:jpg,jpeg,png,heic'),    
             
-            HasMany::make('Subscriptions'),
-            HasMany::make('Reservations'),
-            HasMany::make('Checkins')
 
             
         ];
