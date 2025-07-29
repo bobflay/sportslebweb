@@ -3,84 +3,294 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Team;
-use App\Models\Player;
-use Faker\Factory as Faker;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class PlayerSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
-        $faker = Faker::create();
-        
-        // Basketball positions
-        $positions = [
-            'Point Guard',
-            'Shooting Guard',
-            'Small Forward',
-            'Power Forward',
-            'Center',
-            'Guard',
-            'Forward',
-            'Guard/Forward',
-            'Forward/Center',
-            'Combo Guard'
-        ];
-
-        // Get all teams
-        $teams = Team::all();
-
-        // If no teams exist, create some sample teams first
-        if ($teams->isEmpty()) {
-            $sampleTeams = [
-                ['name' => 'Lakers', 'city' => 'Los Angeles', 'coach_name' => 'Darvin Ham', 'founded_year' => 1947],
-                ['name' => 'Warriors', 'city' => 'Golden State', 'coach_name' => 'Steve Kerr', 'founded_year' => 1946],
-                ['name' => 'Celtics', 'city' => 'Boston', 'coach_name' => 'Joe Mazzulla', 'founded_year' => 1946],
-                ['name' => 'Heat', 'city' => 'Miami', 'coach_name' => 'Erik Spoelstra', 'founded_year' => 1988],
-                ['name' => 'Bulls', 'city' => 'Chicago', 'coach_name' => 'Billy Donovan', 'founded_year' => 1966],
-            ];
-
-            foreach ($sampleTeams as $teamData) {
-                Team::create($teamData);
-            }
-            
-            $teams = Team::all();
-        }
-
-        // Create 10 players for each team
-        foreach ($teams as $team) {
-            // Delete existing players for this team to avoid duplicates
-            $team->players()->delete();
-            
-            // Track used numbers for this team
-            $usedNumbers = [];
-            
-            for ($i = 1; $i <= 10; $i++) {
-                // Generate unique jersey number
-                do {
-                    $number = $faker->numberBetween(0, 99);
-                } while (in_array($number, $usedNumbers));
-                
-                $usedNumbers[] = $number;
-                
-                Player::create([
-                    'team_id' => $team->id,
-                    'first_name' => $faker->firstName('male'),
-                    'last_name' => $faker->lastName,
-                    'position' => $faker->randomElement($positions),
-                    'number' => $number,
-                    'date_of_birth' => $faker->dateTimeBetween('-40 years', '-18 years')->format('Y-m-d'),
-                    'photo_url' => null, // You can add sample photo URLs if needed
-                ]);
-            }
-            
-            $this->command->info("Created 10 players for team: {$team->name}");
-        }
-
-        $totalPlayers = Player::count();
-        $this->command->info("Total players created: {$totalPlayers}");
+        DB::table('players')->truncate();
+        DB::table('players')->insert([
+            [
+                'first_name' => 'Sekou',
+                'last_name' => 'Doumbouya',
+                'full_name' => 'Sekou Doumbouya',
+                'team' => 'Sagesse SC',
+                'number' => 45,
+                'position' => 'Forward',
+                'date_of_birth' => '12/23/2000',
+            ],
+            [
+                'first_name' => 'Cleanthony',
+                'last_name' => 'Early',
+                'full_name' => 'Cleanthony Early',
+                'team' => 'Sagesse SC',
+                'number' => 91,
+                'position' => 'Forward',
+                'date_of_birth' => '04/17/1991',
+            ],
+            [
+                'first_name' => 'Gerard',
+                'last_name' => 'Hadidian',
+                'full_name' => 'Gerard Hadidian',
+                'team' => 'Sagesse SC',
+                'number' => 21,
+                'position' => 'Forward',
+                'date_of_birth' => '04/29/1995',
+            ],
+            [
+                'first_name' => 'Ahmad',
+                'last_name' => 'Ibrahim',
+                'full_name' => 'Ahmad Ibrahim',
+                'team' => 'Sagesse SC',
+                'number' => 9,
+                'position' => 'Small Forward',
+                'date_of_birth' => '02/18/1992',
+            ],
+            [
+                'first_name' => 'Omar',
+                'last_name' => 'Jamaleddine',
+                'full_name' => 'Omar Jamaleddine',
+                'team' => 'Sagesse SC',
+                'number' => 1,
+                'position' => 'Guard',
+                'date_of_birth' => '08/30/1999',
+            ],
+            [
+                'first_name' => 'Jad',
+                'last_name' => 'Khalil',
+                'full_name' => 'Jad Khalil',
+                'team' => 'Sagesse SC',
+                'number' => 8,
+                'position' => 'Point Guard',
+                'date_of_birth' => '06/19/1998',
+            ],
+            [
+                'first_name' => 'Jihad',
+                'last_name' => 'El Khatib',
+                'full_name' => 'Jihad El Khatib',
+                'team' => 'Sagesse SC',
+                'number' => 15,
+                'position' => 'Forward',
+                'date_of_birth' => '10/10/2002',
+            ],
+            [
+                'first_name' => 'Joe',
+                'last_name' => 'Abi Kheres',
+                'full_name' => 'Joe Abi Kheres',
+                'team' => 'Sagesse SC',
+                'number' => 28,
+                'position' => 'Center',
+                'date_of_birth' => '05/04/1993',
+            ],
+            [
+                'first_name' => 'Marc',
+                'last_name' => 'Khoueiry',
+                'full_name' => 'Marc Khoueiry',
+                'team' => 'Sagesse SC',
+                'number' => 3,
+                'position' => 'Guard',
+                'date_of_birth' => '11/22/2000',
+            ],
+            [
+                'first_name' => 'Stefan',
+                'last_name' => 'Moody',
+                'full_name' => 'Stefan Moody',
+                'team' => 'Sagesse SC',
+                'number' => 42,
+                'position' => 'Point Guard',
+                'date_of_birth' => '10/28/1993',
+            ],
+            [
+                'first_name' => 'Martin',
+                'last_name' => 'Krampelj',
+                'full_name' => 'Martin Krampelj',
+                'team' => 'Sagesse SC',
+                'number' => 11,
+                'position' => 'Power Forward',
+                'date_of_birth' => '03/24/1995',
+            ],
+            [
+                'first_name' => 'Ater',
+                'last_name' => 'Majok',
+                'full_name' => 'Ater Majok',
+                'team' => 'Sagesse SC',
+                'number' => 15,
+                'position' => 'Forward-Center',
+                'date_of_birth' => '07/04/1987',
+            ],
+            [
+                'first_name' => 'Zach',
+                'last_name' => 'Lofton',
+                'full_name' => 'Zach Lofton',
+                'team' => 'Sagesse SC',
+                'number' => 23,
+                'position' => 'Guard',
+                'date_of_birth' => '11/18/1992',
+            ],
+            [
+                'first_name' => 'Aziz',
+                'last_name' => 'Abdelmassih',
+                'full_name' => 'Aziz Abdelmassih',
+                'team' => 'Sagesse SC',
+                'number' => 0,
+                'position' => 'Forward',
+                'date_of_birth' => '01/06/1996',
+            ],
+            [
+                'first_name' => 'Elie',
+                'last_name' => 'Rustom',
+                'full_name' => 'Elie Rustom',
+                'team' => 'Sagesse SC',
+                'number' => 20,
+                'position' => 'Guard-Forward',
+                'date_of_birth' => '05/02/1987',
+            ],
+            [
+                'first_name' => 'Naim',
+                'last_name' => 'Rabay',
+                'full_name' => 'Naim Rabay',
+                'team' => 'Sagesse SC',
+                'number' => 12,
+                'position' => 'Center',
+                'date_of_birth' => '06/14/1991',
+            ],
+            [
+                'first_name' => 'Wael',
+                'last_name' => 'Arakji',
+                'full_name' => 'Wael Arakji',
+                'team' => 'Riyadi SC',
+                'number' => 16,
+                'position' => 'Point Guard',
+                'date_of_birth' => '09/04/1994',
+            ],
+            [
+                'first_name' => 'Hayk',
+                'last_name' => 'Gyokchyan',
+                'full_name' => 'Hayk Gyokchyan',
+                'team' => 'Riyadi SC',
+                'number' => 24,
+                'position' => 'Shooting Guard',
+                'date_of_birth' => '12/11/1989',
+            ],
+            [
+                'first_name' => 'Thon',
+                'last_name' => 'Maker',
+                'full_name' => 'Thon Maker',
+                'team' => 'Riyadi SC',
+                'number' => 2,
+                'position' => 'Power Forward',
+                'date_of_birth' => '02/25/1997',
+            ],
+            [
+                'first_name' => 'Karim',
+                'last_name' => 'Zeinoun',
+                'full_name' => 'Karim Zeinoun',
+                'team' => 'Riyadi SC',
+                'number' => 7,
+                'position' => 'Small Forward',
+                'date_of_birth' => '04/13/1998',
+            ],
+            [
+                'first_name' => 'Amir',
+                'last_name' => 'Saoud',
+                'full_name' => 'Amir Saoud',
+                'team' => 'Riyadi SC',
+                'number' => 5,
+                'position' => 'Shooting Guard',
+                'date_of_birth' => '06/23/1991',
+            ],
+            [
+                'first_name' => 'Mohamad',
+                'last_name' => 'Tabbara',
+                'full_name' => 'Mohamad Tabbara',
+                'team' => 'Riyadi SC',
+                'number' => 14,
+                'position' => 'Small Forward',
+                'date_of_birth' => '01/29/1999',
+            ],
+            [
+                'first_name' => 'Marwan',
+                'last_name' => 'Ziade',
+                'full_name' => 'Marwan Ziade',
+                'team' => 'Riyadi SC',
+                'number' => 6,
+                'position' => 'Center',
+                'date_of_birth' => '08/03/1995',
+            ],
+            [
+                'first_name' => 'Georges',
+                'last_name' => 'Daaboul',
+                'full_name' => 'Georges Daaboul',
+                'team' => 'Riyadi SC',
+                'number' => 0,
+                'position' => 'Shooting Guard',
+                'date_of_birth' => '10/21/1997',
+            ],
+            [
+                'first_name' => 'Ismail',
+                'last_name' => 'Ahmad',
+                'full_name' => 'Ismail Ahmad',
+                'team' => 'Riyadi SC',
+                'number' => 4,
+                'position' => 'Power Forward',
+                'date_of_birth' => '09/02/1976',
+            ],
+            [
+                'first_name' => 'Marcus',
+                'last_name' => 'Georges-Hunt',
+                'full_name' => 'Marcus Georges-Hunt',
+                'team' => 'Riyadi SC',
+                'number' => 3,
+                'position' => 'Shooting Guard',
+                'date_of_birth' => '03/28/1994',
+            ],
+            [
+                'first_name' => 'Omar',
+                'last_name' => 'Soubra',
+                'full_name' => 'Omar Soubra',
+                'team' => 'Riyadi SC',
+                'number' => 33,
+                'position' => 'Center',
+                'date_of_birth' => '07/11/1992',
+            ],
+            [
+                'first_name' => 'Keron',
+                'last_name' => 'DeShields',
+                'full_name' => 'Keron DeShields',
+                'team' => 'Riyadi SC',
+                'number' => 12,
+                'position' => 'Point Guard',
+                'date_of_birth' => '09/04/1992',
+            ],
+            [
+                'first_name' => 'Habib',
+                'last_name' => 'Abdallah',
+                'full_name' => 'Habib Abdallah',
+                'team' => 'Riyadi SC',
+                'number' => 19,
+                'position' => 'Guard',
+                'date_of_birth' => '10/14/2000',
+            ],
+            [
+                'first_name' => 'Youssef',
+                'last_name' => 'Ghantous',
+                'full_name' => 'Youssef Ghantous',
+                'team' => 'Riyadi SC',
+                'number' => 25,
+                'position' => 'Shooting Guard',
+                'date_of_birth' => '05/11/1996',
+            ],
+            [
+                'first_name' => 'Mostafa',
+                'last_name' => 'Assaf',
+                'full_name' => 'Mostafa Assaf',
+                'team' => 'Riyadi SC',
+                'number' => 88,
+                'position' => 'Center',
+                'date_of_birth' => '02/07/1993',
+            ],
+        ]);
     }
 }
